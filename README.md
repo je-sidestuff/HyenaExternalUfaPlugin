@@ -27,11 +27,19 @@ make build
 ```
 
 Then, in local-representative's **plugins** tab, "Hyena" shows as `pending`;
-click **approve hyena-ufa-plugin**. The page is framed at
-`/apps/hyena-ufa-plugin/`. Port 8091 avoids the example plug-in's 8090.
+click **approve hyena-external-ufa-plugin**. The page is framed at
+`/apps/hyena-external-ufa-plugin/`. Port 8091 avoids the example plug-in's 8090.
+The default app id matches the one LR derives from this directory's name.
 
 Flags: `--port`, `--name` (app id; must match the representable client name),
 `--lr-host`, `--lr-port`, `--dev-mode` (must match LR's).
 
-LR does not launch or restart external plug-ins (lifecycle is out of scope in
-version 1), so run this yourself.
+## Automatic rebuild and relaunch
+
+LR's plug-in dev repo watcher pulls this repo and, when a commit tagged
+`[condoc-xxxx]` or `[condocv2-xxxx]` arrives (or a `.ufabuild` request is
+present), runs `make deploy-dev-binaries` here. That target tests and builds
+the plug-in into `.deploy/`, stops the previous instance (pid in
+`.deploy/pid`), and relaunches it in the background (log in
+`.deploy/plugin.log`). Set `LR_PORT` or `ARGS` to change how it is launched.
+`.ufabuild` and `.deploy/` are gitignored.

@@ -40,7 +40,7 @@ type Hello struct {
 
 func main() {
 	port := flag.String("port", "8091", "HTTP port to listen on")
-	name := flag.String("name", "hyena-ufa-plugin", "app id, and the name reported to local-representative: they must match")
+	name := flag.String("name", "hyena-external-ufa-plugin", "app id, and the name reported to local-representative: they must match")
 	lrHost := flag.String("lr-host", "localhost", "local-representative host/IP")
 	lrPort := flag.String("lr-port", "8082", "local-representative representable port")
 	devMode := flag.Bool("dev-mode", false, "dev mode (SDLC sense); must match local-representative's")
