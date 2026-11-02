@@ -38,8 +38,9 @@ Flags: `--port`, `--name` (app id; must match the representable client name),
 
 LR's plug-in dev repo watcher pulls this repo and, when a commit tagged
 `[condoc-xxxx]` or `[condocv2-xxxx]` arrives (or a `.ufabuild` request is
-present), runs `make deploy-dev-binaries` here. That target tests and builds
-the plug-in into `.deploy/`, stops the previous instance (pid in
-`.deploy/pid`), and relaunches it in the background (log in
-`.deploy/plugin.log`). Set `LR_PORT` or `ARGS` to change how it is launched.
-`.ufabuild` and `.deploy/` are gitignored.
+present), runs `make deploy-dev-binaries DEV_PLUGIN_DIR=… DEV_PLUGIN_BIN=…
+PLUGIN_APP_ID=…` here. That target only tests and builds the plug-in to
+`$(DEV_PLUGIN_BIN)`. Deploying, launching (press **launch** on the repo's row
+in LR) and restarting after each successful build are LR's job; it starts the
+plug-in with `--lr-host`, `--lr-port`, `--port`, `--name <app-id>` and
+`--dev-mode`. `.ufabuild` is gitignored.
