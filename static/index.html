@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hyena</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #12100b;
+    --card: #1d1912;
+    --card-hi: #262015;
+    --border: #3a3120;
+    --text: #efe3c8;
+    --muted: #b99d63;
+    --accent: #e8a93a;
+    --accent-2: #c2561f;
+    --ok: #9fd16b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(232, 169, 58, .16), transparent 55%),
+      var(--bg);
+    color: var(--text);
+  }
+  main { max-width: 36rem; margin: 0 auto; }
+  .card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--card-hi), var(--card));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.75rem 1.9rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .04);
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-2), var(--accent), var(--accent-2));
+  }
+  header { display: flex; align-items: center; gap: 1.1rem; }
+  .logo {
+    flex: none;
+    width: 3.6rem;
+    height: 3.6rem;
+    display: grid;
+    place-items: center;
+    font-size: 1.9rem;
+    border-radius: 14px;
+    background: radial-gradient(circle at 30% 25%, #3a2f1a, #1a1610);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 18px rgba(232, 169, 58, .25);
+  }
+  h1 { margin: 0; font-size: 1.45rem; line-height: 1.25; letter-spacing: .01em; }
+  .tagline { margin: .2rem 0 0; color: var(--muted); font-size: .92rem; }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-top: 1.25rem;
+    padding: .2rem .75rem;
+    border-radius: 999px;
+    background: rgba(159, 209, 107, .1);
+    border: 1px solid rgba(159, 209, 107, .3);
+    color: var(--ok);
+    font-size: .82rem;
+  }
+  .status::before {
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 8px var(--ok);
+  }
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0;
+    margin: 1.25rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  dt, dd { margin: 0; padding: .7rem 1rem; border-top: 1px solid var(--border); }
+  dt:first-of-type, dt:first-of-type + dd { border-top: 0; }
+  dt {
+    color: var(--muted);
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    background: rgba(0, 0, 0, .18);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+  }
+  dd {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: .88rem;
+    word-break: break-all;
+  }
+  footer { margin-top: 1.4rem; text-align: center; color: #7d6a42; font-size: .82rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <header>
+      <div class="logo" aria-hidden="true">🐾</div>
+      <div>
+        <h1 id="msg">Hyena</h1>
+        <p class="tagline">An external UFA plug-in. Ha ha ha!</p>
+      </div>
+    </header>
+    <div class="status">Serving</div>
+    <dl>
+      <dt>App id</dt><dd id="app">-</dd>
+      <dt>Served at</dt><dd id="time">-</dd>
+      <dt>Origin</dt><dd id="origin">-</dd>
+    </dl>
+  </div>
+  <footer>Served by HyenaExternalUfaPlugin</footer>
+</main>
+<script>
+  var hello = /*HELLO*/null;
+  if (hello) {
+    document.getElementById('msg').textContent = hello.message;
+    document.getElementById('app').textContent = hello.app_id;
+    var t = new Date(hello.time);
+    document.getElementById('time').textContent =
+      isNaN(t) ? hello.time : t.toLocaleString() + ' (' + hello.time + ')';
+  }
+  // "null" here means the page is sandboxed, as external plug-ins should be.
+  document.getElementById('origin').textContent = String(window.origin);
+</script>
+</body>
+</html>
